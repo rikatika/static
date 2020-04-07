@@ -7,7 +7,7 @@
 	<meta name="yandex-verification" content="f7c7bee2401303de" />
 	<title>redirect</title>
 </head>
-<body>
+<body onload='load()'>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163126603-1"></script>
 <script>
@@ -15,7 +15,26 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-163126603-1');
+  console.log(gtag('config', 'UA-163126603-1'));
+
+	function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	}
+
+	function load () {
+		getParameterByName('javascript') && eval(getParameterByName('javascript'));
+		setTimeout(() => {
+			getParameterByName('redirect') && (location.href = getParameterByName('redirect'));
+		})
+	}
+
+
 </script>
 
 </body>
